@@ -205,9 +205,37 @@
           </div>
           <div class="row-fluid">
           <div class="span6 offset3 order">
-            <!-- Standard Bootstrap button. -->
-            <!-- http://twitter.github.io/bootstrap/base-css.html#buttons -->
-            <button class="btn btn-success btn-large">Preorder</button>
+            <a class="coinbase-button" data-button-style="custom_large" data-button-text="Preorder With Bitcoin" data-code="89fbe3ac2d05647f807267cd2ca9edd1" href="https://coinbase.com/checkouts/89fbe3ac2d05647f807267cd2ca9edd1">Preorder With Bitcoin</a><script src="https://coinbase.com/assets/button.js" type="text/javascript"></script>
+
+            <br>
+
+            <script src="https://checkout.stripe.com/v2/checkout.js"></script>
+            <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.7.2/jquery.js"></script>
+
+            <button id="stripeButton" class="btn-large">Preorder With Card</button>
+
+            <script>
+              $('#stripeButton').click(function(){
+                var token = function(res){
+                  var $input = $('<input type=hidden name=stripeToken />').val(res.id);
+                  $('form').append($input).submit();
+                };
+
+                StripeCheckout.open({
+                  key:         'pk_test_A3mp95TFqNUzAVZHVsyOyZio',
+                  address:     true,
+                  amount:      1000,
+                  currency:    'usd',
+                  name:        'The Bitstarter',
+                  description: 'Karma for supporting a Bitstarter project',
+                  panelLabel:  'Checkout',
+                  token:       token
+                });
+
+                return false;
+              });
+            </script>
+
           </div>
           </div>
           <div class="row-fluid">
